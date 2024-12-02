@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: default
   labels:
     app: nginx
 spec:
@@ -33,5 +32,6 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 30293
+      nodePort: 30432
   type: nodePort
+

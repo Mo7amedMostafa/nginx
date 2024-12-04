@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: nginz
   labels:
     app: nginx
 spec:
@@ -15,8 +14,6 @@ spec:
       labels:
         app: nginx
     spec:
-      nodeSelector:
-        role: nginx
       containers:
       - name: nginx-pod
         image: nginx:alpine
@@ -26,7 +23,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: nginz
   name: nginx-service
 spec:
   selector:

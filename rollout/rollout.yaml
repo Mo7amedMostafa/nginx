@@ -33,6 +33,7 @@ spec:
       autoPromotionEnabled: false
       activeService: bluegreen-demo
       previewService: bluegreen-demo-preview
+      
 ---
 apiVersion: v1
 kind: Service

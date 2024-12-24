@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: argoproj/rollouts-demo:green # Replace with your application image
+        image: argoproj/rollouts-demo:blue # Replace with your application image
         ports:
         - containerPort: 8080
 ---

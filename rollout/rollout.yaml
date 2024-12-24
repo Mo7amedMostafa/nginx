@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: nginx:1.23.5 # Replace with your application image
+        image: argoproj/rollouts-demo:blue # Replace with your application image
         ports:
         - containerPort: 80
 ---

@@ -9,7 +9,7 @@ spec:
     blueGreen:
       activeService: bluegreen-active
       previewService: bluegreen-preview
-      autoPromotionEnabled: true # Automatically promote after a new version
+      autoPromotionEnabled: false # Automatically promote after a new version
   selector:
     matchLabels:
       app: bluegreen-app
@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: nginx:1.23.4 # Replace with your application image
+        image: nginx:1.23.5 # Replace with your application image
         ports:
         - containerPort: 80
 ---

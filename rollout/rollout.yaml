@@ -1,57 +1,68 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: bluegreen-rollout
-  namespace: default
+  name: bluegreen-demo
+  labels:
+    app: bluegreen-demo
 spec:
   replicas: 3
-  strategy:
-    blueGreen:
-      activeService: bluegreen-active
-      previewService: bluegreen-preview
-      autoPromotionEnabled: false # Automatically promote after a new version
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: bluegreen-app
+      app: bluegreen-demo
   template:
     metadata:
       labels:
-        app: bluegreen-app
+        app: bluegreen-demo
     spec:
       containers:
-      - name: app
-        image: argoproj/rollouts-demo:blue # Replace with your application image
+      - name: bluegreen-demo
+        image: argoproj/rollouts-demo:blue
+        imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        resources:
+          requests:
+            memory: 32Mi
+            cpu: 5m
+  strategy:
+    blueGreen:
+      autoPromotionEnabled: false
+      activeService: bluegreen-demo
+      previewService: bluegreen-demo-preview
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: bluegreen-active
-  namespace: default
+  name: bluegreen-demo
+  labels:
+    app: bluegreen-demo
 spec:
   type: NodePort
-  selector:
-    app: bluegreen-app
   ports:
   - name: http
     protocol: TCP
     port: 8080
     targetPort: 8080
-    nodePort: 30080 # Replace with your desired NodePort range
+    nodePort: 30080
+  selector:
+    app: bluegreen-demo
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: bluegreen-preview
-  namespace: default
+  name: bluegreen-demo-preview
+  labels:
+    app: bluegreen-demo
 spec:
   type: NodePort
-  selector:
-    app: bluegreen-app
   ports:
   - name: http
     protocol: TCP
     port: 8080
     targetPort: 8080
     nodePort: 30081
+  selector:
+    app: bluegreen-demo

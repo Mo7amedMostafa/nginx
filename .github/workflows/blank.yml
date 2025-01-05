@@ -30,6 +30,7 @@ jobs:
         cd deploy
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
+        git remote set-url origin https://x-access-token:${{ secrets.DEPLOY_PAT }}@github.com/Mo7amedMostafa/deploy.git
         git add rollout/rollout.yaml
         git commit -m "Update image tag to commit ${{ github.sha }}"
         git push

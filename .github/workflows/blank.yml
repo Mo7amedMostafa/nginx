@@ -32,7 +32,7 @@ jobs:
     
     - name: Build Docker Image for nginx
       run: |
-        cd deploy
+        cd deploy/deploy/
         COMMIT_ID=$(echo "${{ github.sha }}" | cut -c1-7)
         docker build -t nginx:${COMMIT_ID} .
         docker tag nginx:${COMMIT_ID} mo7amedmostafa/nginx:${COMMIT_ID}

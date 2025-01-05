@@ -24,13 +24,6 @@ jobs:
       run: |
         COMMIT_ID=$(echo "${{ github.sha }}" | cut -c1-7)
         sed -i "s|image: argoproj/rollouts-demo:.*|image: argoproj/rollouts-demo:${COMMIT_ID}|g" deploy/rollout/rollout.yaml
-
-    - name: Set up SSH key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-        chmod 600 ~/.ssh/id_ed25519
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
     
     - name: Commit and Push Changes to deploy Repository
       run: |

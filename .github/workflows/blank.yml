@@ -10,16 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
+    - name: Checkout nginx Repository
       uses: actions/checkout@v3
+
+    - name: Checkout deploy Repository
+      uses: actions/checkout@v3
+      with:
+        repository: Mo7amedMostafa/deploy
+        token: ${{ secrets.GITHUB_TOKEN }}
+        path: deploy
 
     - name: Update Image Tag in rollout.yaml
       run: |
         COMMIT_ID=$(echo "${{ github.sha }}" | cut -c1-7)
-        sed -i "s|image: argoproj/rollouts-demo:.*|image: argoproj/rollouts-demo:${COMMIT_ID}|g" rollout/rollout.yaml
+        sed -i "s|image: argoproj/rollouts-demo:.*|image: argoproj/rollouts-demo:${COMMIT_ID}|g" deploy/rollout/rollout.yaml
 
-    - name: Commit and Push Changes
+    - name: Commit and Push Changes to deploy Repository
       run: |
+        cd deploy
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
         git add rollout/rollout.yaml

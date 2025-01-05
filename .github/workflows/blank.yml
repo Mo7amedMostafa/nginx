@@ -28,7 +28,7 @@ jobs:
       run: |
         cd deploy2
         COMMIT_ID=$(echo "${{ github.sha }}" | cut -c1-7)
-        sed -i "s|image: docker pull mo7amedmostafa/nginx:.*|image: docker pull mo7amedmostafa/nginx:${COMMIT_ID}|g" ./rollout/rollout.yaml
+        sed -i "s|image: mo7amedmostafa/nginx:.*|image: mo7amedmostafa/nginx:${COMMIT_ID}|g" ./rollout/rollout.yaml
     
     - name: Build Docker Image for nginx
       run: |

@@ -33,6 +33,6 @@ jobs:
         git remote set-url origin https://x-access-token:${{ secrets.DEPLOY_PAT }}@github.com/Mo7amedMostafa/deploy.git
         git add rollout/rollout.yaml
         git commit -m "Update image tag to commit ${{ github.sha }}"
-        git push
+        git push origin main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -12,13 +12,17 @@ jobs:
     steps:
     - name: Checkout nginx Repository
       uses: actions/checkout@v3
+      with:
+        repository: Mo7amedMostafa/deploy
+        token: ${{ secrets.GITHUB_TOKEN }}
+        path: deploy
 
     - name: Checkout deploy Repository
       uses: actions/checkout@v3
       with:
         repository: Mo7amedMostafa/deploy
         token: ${{ secrets.GITHUB_TOKEN }}
-        path: deploy
+        path: deploy2
 
     - name: Update Image Tag in rollout.yaml
       run: |
@@ -36,6 +40,7 @@ jobs:
 
     - name: Commit and Push Changes to deploy Repository
       run: |
+        cd deploy2
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
         git remote set-url origin git@github.com:Mo7amedMostafa/deploy.git

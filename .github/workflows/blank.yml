@@ -31,7 +31,7 @@ jobs:
         COMMIT_ID=$(echo "${{ github.sha }}" | cut -c1-7)
         docker build -t nginx:${COMMIT_ID} .
         docker tag nginx:${COMMIT_ID} mo7amedmostafa/nginx:${COMMIT_ID}
-       # echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        # echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
         docker push mo7amedmostafa/nginx:${COMMIT_ID}
 
     - name: Commit and Push Changes to deploy Repository

@@ -13,7 +13,7 @@ jobs:
     - name: Checkout nginx Repository
       uses: actions/checkout@v3
       with:
-        repository: Mo7amedMostafa/deploy
+        repository: Mo7amedMostafa/nginx
         token: ${{ secrets.GITHUB_TOKEN }}
         path: deploy
 
